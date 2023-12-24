@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/12/2023 11:43:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.RegistroVacaciones" table="registro_vacaciones" catalog="hibernatefinaljsf" optimistic-lock="version">
+        <id name="idregistro" type="java.lang.Integer">
+            <column name="idregistro" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="empleados" class="modelo.Empleados" fetch="select">
+            <column name="empleado_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="tipoVacaciones" class="modelo.TipoVacaciones" fetch="select">
+            <column name="tipo_id" not-null="true" />
+        </many-to-one>
+        <property name="fechaInicio" type="date">
+            <column name="fecha_inicio" length="10" not-null="true" />
+        </property>
+        <property name="fechaFin" type="date">
+            <column name="fecha_fin" length="10" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="estado" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

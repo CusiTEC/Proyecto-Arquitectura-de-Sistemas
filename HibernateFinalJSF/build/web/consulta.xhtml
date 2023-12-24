@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Tabla Usuarios</title>
+    </h:head>
+    <h:body>
+        <a href="index.xhtml">jaaa</a>
+         <h:form id="formListado">
+             <p:dataTable id="tablaUsuarios" paginator="true" paginatorPosition="bottom" rows="10" var="empleados" value="#{empleadoBean.listaEmpleados}" emptyMessage="No existen Usuarios">
+                            <p:column headerText="ID empleados" filterBy="#{empleados.idempleado}" filterMatchMode="contains">
+                <h:outputText value="#{empleados.idempleado}" />
+            </p:column>
+            <p:column headerText="Nombre" filterBy="#{empleados.nombres}" filterMatchMode="contains">
+                <h:outputText value="#{empleados.nombres}" />
+            </p:column>
+            <p:column headerText="Apellidos" filterBy="#{empleados.apellidos}" filterMatchMode="contains">
+                <h:outputText value="#{empleados.apellidos}" />
+            </p:column>
+            <p:column headerText="Email" filterBy="#{empleados.email}" filterMatchMode="contains">
+                <h:outputText value="#{empleados.email}" />
+            </p:column>
+            <p:column headerText="Rol" filterBy="#{empleados.rol}" filterMatchMode="contains">
+                <h:outputText value="#{empleados.rol}" />
+            </p:column>
+            <p:column headerText="Fecha de Entrada" filterBy="#{empleados.fechaEntrada}" filterMatchMode="contains">
+                <h:outputText value="#{empleados.fechaEntrada}" />
+            </p:column>
+                 <p:column headerText="Valor" filterBy="#{empleados.departamentos.departamento}" filterMatchMode="contains">
+                     <h:outputText value="#{empleados.departamentos.departamento}" />
+            </p:column>
+            </p:dataTable>
+                    </h:form>
+        
+    </h:body>
+</html>

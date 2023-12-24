@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Tabla Usuarios</title>
+        <style>
+                        /* Estilos para el cuerpo de la página */
+           /* Estilos para la tabla de datos */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 50px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #fff; /* Color de fondo para la tabla */
+}
+
+#formListado {
+    margin-left: 50px;
+    margin-right: 80px;
+}
+
+th, td {
+    padding: 12px 20px; /* Aumento del relleno para separación */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f5f5f5;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #555;
+}
+
+/* Estilos alternados para filas */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Estilos para el enlace de búsqueda */
+a {
+    display: inline-block;
+    margin-bottom: 10px;
+    padding: 12px 20px; /* Aumento del relleno para el botón */
+    background-color: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+a:hover {
+    background-color: #2980b9;
+}
+
+.boton-cerrar {
+    margin-left:80%; 
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: #ff6347; /* Cambia el color de fondo */
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.boton-cerrar:hover {
+    background-color: #e74c3c; /* Cambia el color al pasar el ratón por encima */
+}
+
+
+        </style>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:separator/>
+            <h1 id="title">Sistema de Gestión de Empleados</h1>
+             <a href="busqueda.xhtml">Ir a vista Busqueda por nombre -> </a>
+            <h:commandButton id="btnCerrar" value="Cerrar sesión" action="#{loginBean.logout()}" styleClass="boton-cerrar" />
+             <p:separator/>
+             <p:commandButton value="Agregar Usuarios" actionListener="#{empleadoBean.limpiarEmpleados()}" oncomplete="PF('dialogoAgregar').show();" update=":formAgregar"/>
+             <p:separator/>
+        </h:form>
+        
+         <h:form id="formListado">
+             
+             
+             <p:dataTable id="tablaUsuarios" paginator="true" paginatorPosition="bottom" rows="10" var="empleados" value="#{empleadoBean.listaEmpleados}" emptyMessage="No existen Usuarios">
+                 <p:column headerText="ID empleados" filterBy="#{empleados.idempleado}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.idempleado}" />
+                            </p:column>
+                 <p:column headerText="Nombre" filterBy="#{empleados.nombres}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.nombres}" />
+                            </p:column>
+                 <p:column headerText="Apellidos" filterBy="#{empleados.apellidos}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.apellidos}" />
+                            </p:column>
+                 <p:column headerText="Correo" filterBy="#{empleados.email}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.email}" />
+                            </p:column>
+                 <p:column headerText="Puesto" filterBy="#{empleados.rol}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.rol}" />
+                            </p:column>
+                 <p:column headerText="Fecha de Entrada" filterBy="#{empleados.fechaEntrada}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.fechaEntrada}" />
+                            </p:column>
+                 <p:column headerText="Area" filterBy="#{empleados.departamentos.departamento}" filterMatchMode="contains">
+                                <h:outputText value="#{empleados.departamentos.departamento}" />
+                            </p:column>
+                            <p:column headerText="MODIFICAR" style="text-align: center">
+                                <p:commandButton icon="ui-icon-pencil" title="Modificar" oncomplete="PF('dialogoModificar').show();" update=":formModificar">
+                                    <f:setPropertyActionListener target="#{empleadoBean.empleados}" value="#{empleados}"/>
+                                </p:commandButton>
+                            </p:column>
+                            <p:column headerText="ELIMINAR" style="text-align: center">
+                                <p:commandButton icon="ui-icon-trash" title="Eliminar" oncomplete="PF('dialogoEliminar').show();" update=":formEliminar">
+                                    <f:setPropertyActionListener target="#{empleadoBean.empleados}" value="#{empleados}"/>
+                                </p:commandButton>
+                            </p:column>
+
+                        </p:dataTable>
+                    </h:form>
+        <h:form id="formAgregar">
+                        <p:dialog id="dlgAgregar" header="Agregar Usuarios" widgetVar="dialogoAgregar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                            <p:panelGrid columns="2" style="margin: 0 auto;">                                
+                                <p:outputLabel value="Nombre:"/>
+                                <p:inputText value="#{empleadoBean.empleados.nombres}"/>
+                                <p:outputLabel value="Apellidos:"/>
+                                <p:inputText value="#{empleadoBean.empleados.apellidos}"/>
+                                <p:outputLabel value="Correo:"/>
+                                <p:inputText value="#{empleadoBean.empleados.email}"/>
+                                <p:outputLabel value="Puesto:"/>
+                                <p:inputText value="#{empleadoBean.empleados.rol}"/>               
+                                <p:outputLabel value="Fecha de Entrada:" />
+                                <p:calendar value="#{empleadoBean.empleados.fechaEntrada}" showOn="button" />
+                                <p:outputLabel value="Area:" />
+                                <p:selectOneMenu value="#{empleadoBean.empleados.departamentos.iddepartamento}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{departamentoBean.selectOneItemsDepartamento}"  />
+                                </p:selectOneMenu>
+                            </p:panelGrid>
+                            <p:commandButton  value="Guardar" actionListener="#{empleadoBean.agregarEmpleados()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoAgregar').hide();"/>
+                            <p:commandButton  value="Cancelar" onclick="PF('dialogoAgregar').hide();"/>
+                        </p:dialog>
+                    </h:form>
+
+                    <h:form id="formModificar">
+                        <p:dialog id="dlgModificar" header="Modificar Usuarios" widgetVar="dialogoModificar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                            <p:panelGrid columns="2" style="margin: 0 auto;">                                
+                                <p:outputLabel value="Nombre:"/>
+                                <p:inputText value="#{empleadoBean.empleados.nombres}"/>
+                                <p:outputLabel value="Apellidos:"/>
+                                <p:inputText value="#{empleadoBean.empleados.apellidos}"/>
+                                <p:outputLabel value="Correo:"/>
+                                <p:inputText value="#{empleadoBean.empleados.email}"/>
+                                <p:outputLabel value="Puesto:"/>
+                                <p:inputText value="#{empleadoBean.empleados.rol}"/>               
+                                <p:outputLabel value="Fecha de Entrada:" />
+                                <p:calendar value="#{empleadoBean.empleados.fechaEntrada}" showOn="button" />
+                                <p:outputLabel value="Area:" />
+                                <p:selectOneMenu id="elementosPorDepartamento" value="#{empleadoBean.empleados.departamentos.iddepartamento}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{departamentoBean.selectOneItemsDepartamento}" />
+                                </p:selectOneMenu>
+                 
+                            </p:panelGrid>
+                            <p:commandButton  value="Guardar" actionListener="#{empleadoBean.modificarEmpleados()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoModificar').hide();"/>
+                            <p:commandButton  value="Cancelar" onclick="PF('dialogoModificar').hide();"/>
+                        </p:dialog>
+                    </h:form>
+
+                    <h:form id="formEliminar">
+                        <p:dialog id="dlgEliminar" header="Eliminar Usuarios" widgetVar="dialogoEliminar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                            <h:outputText value="Desea eliminar este registro?"/>
+                            <p:commandButton  value="Si" actionListener="#{empleadoBean.eliminarEmpleados()}" update=":formListado:tablaUsuarios" oncomplete="PF('dialogoEliminar').hide();"/>
+                            <p:commandButton  value="No" onclick="PF('dialogoEliminar').hide();"/>
+                        </p:dialog>
+                    </h:form>
+        
+    </h:body>
+</html>

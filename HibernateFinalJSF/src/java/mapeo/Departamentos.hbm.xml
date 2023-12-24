@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 17/12/2023 11:43:04 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Departamentos" table="departamentos" catalog="hibernatefinaljsf" optimistic-lock="version">
+        <id name="iddepartamento" type="java.lang.Integer">
+            <column name="iddepartamento" />
+            <generator class="identity" />
+        </id>
+        <property name="departamento" type="string">
+            <column name="departamento" length="50" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="descripcion" />
+        </property>
+        <set name="empleados"  inverse="true" >
+            <key>
+                <column name="departamento_id" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Empleados" />
+        </set>
+    </class>
+</hibernate-mapping>

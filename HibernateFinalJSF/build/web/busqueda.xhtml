@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+                <style>
+                        /* Estilos para el cuerpo de la página */
+                    /* Estilos para la tabla de datos */
+         table {
+             width: 100%;
+             border-collapse: collapse;
+             margin-top: 50px;
+             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+             border-radius: 8px;
+             overflow: hidden;
+             background-color: #fff; /* Color de fondo para la tabla */
+         }
+         .formListado {
+             margin-left: 50px;
+             margin-right: 80px;
+         }
+
+         th, td {
+             padding: 12px 20px; /* Aumento del relleno para separación */
+             text-align: left;
+             border-bottom: 1px solid #ddd;
+         }
+
+         th {
+             background-color: #f5f5f5;
+             font-weight: bold;
+             text-transform: uppercase;
+             letter-spacing: 1px;
+             color: #555;
+         }
+
+         /* Estilos alternados para filas */
+         tr:nth-child(even) {
+             background-color: #f9f9f9;
+         }
+
+         /* Estilos para el enlace de búsqueda */
+         a {
+             display: inline-block;
+             margin-bottom: 10px;
+             padding: 12px 20px; /* Aumento del relleno para el botón */
+             background-color: #3498db;
+             color: #fff;
+             text-decoration: none;
+             border-radius: 4px;
+             text-transform: uppercase;
+             letter-spacing: 1px;
+             transition: background-color 0.3s ease;
+         }
+
+         a:hover {
+             background-color: #2980b9;
+         }
+
+         .boton-cerrar {
+             margin-left:80%; 
+             display: inline-block;
+             padding: 12px 20px;
+             background-color: #ff6347; /* Cambia el color de fondo */
+             color: #fff;
+             border: none;
+             border-radius: 4px;
+             text-transform: uppercase;
+             letter-spacing: 1px;
+             transition: background-color 0.3s ease;
+         }
+
+         .boton-cerrar:hover {
+             background-color: #e74c3c; /* Cambia el color al pasar el ratón por encima */
+         }
+
+
+    </style>
+    </h:head>
+    <h:body>
+        
+        <h:form class="formListado">
+            
+            <h1>Busqueda por Nombre de Empleado</h1>
+            <a href="index.xhtml">  Regresar a Listado General</a>
+            <p:separator></p:separator>
+            <p:inputText value="#{empleadoBean.nombre}" />
+            <p:commandButton value="Buscar" action="#{empleadoBean.buscarEmpleadosPorNombre}" update="resultadosRol" />
+
+      
+    <h:panelGroup id="resultadosRol">
+        <p:dataTable var="empleado" value="#{empleadoBean.empleadosPorNombre}">
+           <p:column headerText="ID empleados">
+                            <h:outputText value="#{empleado.idempleado}" />
+                            </p:column>
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{empleado.nombres}" />
+                            </p:column>
+                            <p:column headerText="Apellidos">
+                                <h:outputText value="#{empleado.apellidos}" />
+                            </p:column>
+                            <p:column headerText="Correo">
+                                <h:outputText value="#{empleado.email}" />
+                            </p:column>
+                            <p:column headerText="Especialidad">
+                                <h:outputText value="#{empleado.rol}" />
+                            </p:column>
+                            <p:column headerText="Fecha de Entrada">
+                                <h:outputText value="#{empleado.fechaEntrada}" />
+                            </p:column>
+                            <p:column headerText="Área">
+                                <h:outputText value="#{empleado.departamentos.departamento}" />
+                            </p:column>
+        </p:dataTable>
+    </h:panelGroup>
+    </h:form>
+    </h:body>
+</html>
+

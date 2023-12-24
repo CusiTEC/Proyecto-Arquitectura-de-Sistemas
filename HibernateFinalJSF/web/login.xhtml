@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Login</title>
+        <style>
+            /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .conteiner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Estilos para el panel de inicio de sesión */
+        .ui-panel {
+            width: 350px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ui-panel-titlebar {
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .ui-panel-content {
+            padding: 20px;
+        }
+
+        /* Estilos para los campos de usuario y contraseña */
+        .ui-panel-content input[type="text"],
+        .ui-panel-content input[type="password"] {
+            width: calc(100% - 30px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s ease;
+        }
+
+        .ui-panel-content input[type="text"]:focus,
+        .ui-panel-content input[type="password"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        /* Estilos para el botón de inicio de sesión */
+        .ui-panel-content button {
+            width: 100%;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .ui-panel-content button:hover {
+            background-color: #2980b9;
+        }
+        
+        .additional-content {
+            text-align: center;
+        }
+
+        .additional-content h1 {
+            font-size: 70px;
+            margin-bottom: 2%;
+            color: #333;
+        }
+
+        </style>
+    </h:head>
+    <h:body>
+        
+        <div class="additional-content">
+        <h1>Bienvenido al Sistema de Gestión de RRHH</h1>
+        </div>
+        
+        <div class="conteiner">
+            <p:growl id="growl" showDetail="true" life="3000" />
+            <h:form id="formLogin">
+                <p:panel header="Ingresar Usuario y Clave">  
+                    <h:panelGrid columns="2" cellpadding="5">  
+                        <h:outputLabel for="username" value="Usuario" />  
+                        <p:inputText value="#{loginBean.usuarios.usuario}"   
+                                id="username" required="true" label="username" />  
+
+                        <h:outputLabel for="password" value="Clave:" />    
+                        <p:password value="#{loginBean.usuarios.clave}"   
+                                id="password" required="true" label="password"/>
+                        <f:facet name="footer">
+                            <p:commandButton id="loginButton" value="Login" update=":growl"   
+                                             actionListener="#{loginBean.login()}"/>
+                        </f:facet>  
+                    </h:panelGrid> 
+                </p:panel> 
+            </h:form>
+            
+        </div>
+        <div class="additional-content">
+             <h:graphicImage  library="images" name="img1.jpg" width="800" height="auto" alt="Logo" />
+        </div>
+
+    </h:body>
+</html>
